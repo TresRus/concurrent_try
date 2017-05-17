@@ -6,5 +6,3 @@ set (QUEUE_CPP
     )
 
 add_executable (queue_test ${QUEUE_CPP})
-
-add_subdirectory(test)

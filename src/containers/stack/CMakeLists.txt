@@ -8,4 +8,5 @@ set (STACK_H
 set (STACK_CPP
     )
 
-add_subdirectory(test)
+link_directories(${LIBRARY_OUTPUT_PATH})
+cxx_test(locked_stack_tests gtest_main)

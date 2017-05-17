@@ -26,32 +26,32 @@ private:
 };
 
 template<class T>
-Stack::Stack() {}
+Stack<T>::Stack() {}
 
 template<class T>
-Stack::Stack(const Stack& other) {
+Stack<T>::Stack(const Stack& other) {
     std::lock_guard<std::mutex> lock(mutex_);
     data_ = other.data_;
 }
 
 template<class T>
-void Stack::Push(T value) {
+void Stack<T>::Push(T value) {
     std::lock_guard<std::mutex> lock(mutex_);
     data_.push(value);
 }
 
 template<class T>
-std::unique_ptr<T> Stack::Pop() {
+std::unique_ptr<T> Stack<T>::Pop() {
     std::lock_guard<std::mutex> lock(mutex_);
     if (data_.empty())
         return nullptr;
     std::unique_ptr<T> res(std::make_unique<T>(data_.top()));
     data_.pop();
-    retrun res;
+    return res;
 }
 
 template<class T>
-bool Stack::Empty() const {
+bool Stack<T>::Empty() const {
     std::lock_guard<std::mutex> lock(mutex_);
     return data_.empty();
 }
