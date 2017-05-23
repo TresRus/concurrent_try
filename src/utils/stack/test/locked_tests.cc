@@ -1,22 +1,25 @@
 #include <thread>
 #include <iostream>
 
-#include "containers/stack/stack.h"
+#include "utils/stack/locked.h"
 #include "gtest/gtest.h"
 
+namespace concurrent {
+namespace utils {
+
 TEST(LockStackTest, EmptyAtStart) { 
-    concurrent::containers::Stack<int> stack;
+    stack::Locked<int> stack;
     ASSERT_TRUE(stack.Empty());
 }
 
 TEST(LockStackTest, PushOne) { 
-    concurrent::containers::Stack<int> stack;
+    stack::Locked<int> stack;
     stack.Push(1);
     ASSERT_FALSE(stack.Empty());
 }
 
 TEST(LockStackTest, PushPop) { 
-    concurrent::containers::Stack<int> stack;
+    stack::Locked<int> stack;
     stack.Push(1);
     ASSERT_FALSE(stack.Empty());
 
@@ -26,19 +29,19 @@ TEST(LockStackTest, PushPop) {
 }
 
 TEST(LockStackTest, PopEmpty) { 
-    concurrent::containers::Stack<int> stack;
+    stack::Locked<int> stack;
 
     auto value = stack.Pop();
     ASSERT_TRUE(stack.Empty());
     ASSERT_EQ(value, nullptr);
 }
 
-void Push(concurrent::containers::Stack<int>& stack, int max_value) {
+void Push(stack::Locked<int>& stack, int max_value) {
     for (int i = 0; i < max_value; ++i)
         stack.Push(i);
 }
 
-void Pop(concurrent::containers::Stack<int>& stack, int max_value) {
+void Pop(stack::Locked<int>& stack, int max_value) {
     for (int i = 0; i < max_value; ++i) {
         auto value = stack.Pop();
         ASSERT_NE(value, nullptr);
@@ -46,7 +49,7 @@ void Pop(concurrent::containers::Stack<int>& stack, int max_value) {
 }
 
 TEST(LockStackTest, PushPopParallel) {
-    concurrent::containers::Stack<int> stack;
+    stack::Locked<int> stack;
     const int max_value = 10000;
 
     std::thread t1(Push, std::ref(stack), max_value);
@@ -61,3 +64,6 @@ TEST(LockStackTest, PushPopParallel) {
 
     ASSERT_TRUE(stack.Empty());
 }
+
+} // namespace utils
+} // namespace concurent

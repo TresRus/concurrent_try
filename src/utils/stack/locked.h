@@ -6,15 +6,16 @@
 #include <stack>
 
 namespace concurrent {
-namespace containers {
+namespace utils {
+namespace stack {
 
 template<class T>
-class Stack {
+class Locked {
 public:
-    Stack();
-    Stack(const Stack&);
+    Locked();
+    Locked(const Locked&);
 
-    Stack& operator=(const Stack&) = delete;
+    Locked& operator=(const Locked&) = delete;
 
     void Push(T);
     std::unique_ptr<T> Pop();
@@ -26,22 +27,22 @@ private:
 };
 
 template<class T>
-Stack<T>::Stack() {}
+Locked<T>::Locked() {}
 
 template<class T>
-Stack<T>::Stack(const Stack& other) {
+Locked<T>::Locked(const Locked& other) {
     std::lock_guard<std::mutex> lock(mutex_);
     data_ = other.data_;
 }
 
 template<class T>
-void Stack<T>::Push(T value) {
+void Locked<T>::Push(T value) {
     std::lock_guard<std::mutex> lock(mutex_);
     data_.push(value);
 }
 
 template<class T>
-std::unique_ptr<T> Stack<T>::Pop() {
+std::unique_ptr<T> Locked<T>::Pop() {
     std::lock_guard<std::mutex> lock(mutex_);
     if (data_.empty())
         return nullptr;
@@ -51,12 +52,13 @@ std::unique_ptr<T> Stack<T>::Pop() {
 }
 
 template<class T>
-bool Stack<T>::Empty() const {
+bool Locked<T>::Empty() const {
     std::lock_guard<std::mutex> lock(mutex_);
     return data_.empty();
 }
 
-} // namespace containers
+} // namespace stack
+} // namespace utils
 } // namespace concurent
 
 #endif // _TC_CONTAINERTS_STACK_H_
