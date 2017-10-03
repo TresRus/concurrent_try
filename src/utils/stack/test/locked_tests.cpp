@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "utils/stack/locked.h"
+
 #include "gtest/gtest.h"
 
 namespace concurrent {
