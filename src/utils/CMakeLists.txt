@@ -1,3 +1,8 @@
+set (UTILS_IFACE
+    lazy_instance.h
+    )
+
+add_subdirectory(test)
 add_subdirectory(queue)
 add_subdirectory(stack)
 add_subdirectory(mutex)

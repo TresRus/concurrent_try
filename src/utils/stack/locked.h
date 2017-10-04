@@ -1,5 +1,5 @@
-#ifndef _TC_CONTAINERTS_STACK_H_
-#define _TC_CONTAINERTS_STACK_H_
+#ifndef _TC_UTILS_STACK_LOCKED_H_
+#define _TC_UTILS_STACK_LOCKED_H_
 
 #include <mutex>
 #include <memory>
@@ -64,4 +64,4 @@ bool Locked<T>::Empty() const {
 } // namespace utils
 } // namespace concurent
 
-#endif // _TC_CONTAINERTS_STACK_H_
+#endif // _TC_UTILS_STACK_LOCKED_H_
