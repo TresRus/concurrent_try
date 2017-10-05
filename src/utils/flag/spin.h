@@ -3,11 +3,13 @@
 
 #include <mutex>
 
+#include "utils/flag/flag.h"
+
 namespace concurrent {
 namespace utils {
 namespace flag {
 
-class Spin {
+class Spin : public Flag {
 public:
   void Wait();
   void Set(bool value);

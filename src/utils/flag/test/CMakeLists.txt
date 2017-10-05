@@ -1,8 +1,7 @@
 set (TEST_NAME flag_tests)
 
 set (TEST_CPP
-    spin_tests.cpp
-    conditional_tests.cpp
+    flag_tests.cpp
     )
 
 link_directories(${LIBRARY_OUTPUT_PATH})

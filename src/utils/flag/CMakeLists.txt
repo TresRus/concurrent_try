@@ -1,11 +1,12 @@
 set (FLAG_IFACE
-    spin.h
     conditional.h
+    flag.h
+    spin.h
     )
 
 set (FLAG_CPP
-    spin.cpp
     conditional.cpp
+    spin.cpp
     )
 
 add_library(flag STATIC ${FLAG_CPP})

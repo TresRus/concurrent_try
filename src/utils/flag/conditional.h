@@ -4,11 +4,13 @@
 #include <mutex>
 #include <condition_variable>
 
+#include "utils/flag/flag.h"
+
 namespace concurrent {
 namespace utils {
 namespace flag {
 
-class Conditional {
+class Conditional : public Flag {
 public:
   void Wait();
   void Set(bool value);
