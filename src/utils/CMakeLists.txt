@@ -3,6 +3,7 @@ set (UTILS_IFACE
     )
 
 # add_subdirectory(map)
+add_subdirectory(flag)
 add_subdirectory(mutex)
 add_subdirectory(queue)
 add_subdirectory(stack)

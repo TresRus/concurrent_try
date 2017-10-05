@@ -2,9 +2,6 @@ set (MUTEX_IFACE
     hierarchical.h
     )
 
-set (MUTEX_H
-    )
-
 set (MUTEX_CPP
     hierarchical.cpp
     )

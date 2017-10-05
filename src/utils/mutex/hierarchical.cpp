@@ -1,6 +1,6 @@
-#include "hierarchical.h"
-
 #include <climits>
+
+#include "hierarchical.h"
 
 namespace concurrent {
 namespace utils {

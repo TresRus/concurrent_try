@@ -1,8 +1,8 @@
 #ifndef _TC_UTILS_MUTEX_HIERARCHICAL_H_
 #define _TC_UTILS_MUTEX_HIERARCHICAL_H_
 
-#include <mutex>
 #include <exception>
+#include <mutex>
 
 namespace concurrent {
 namespace utils {
