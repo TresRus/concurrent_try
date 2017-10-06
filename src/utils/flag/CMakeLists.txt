@@ -1,11 +1,15 @@
 set (FLAG_IFACE
-    conditional.h
     flag.h
+    )
+
+set (FLAG_H
+    conditional.h
     spin.h
     )
 
 set (FLAG_CPP
     conditional.cpp
+    flag.cpp
     spin.cpp
     )
 
