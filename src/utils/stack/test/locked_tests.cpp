@@ -1,5 +1,4 @@
 #include <thread>
-#include <iostream>
 
 #include "utils/stack/locked.h"
 
