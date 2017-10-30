@@ -18,7 +18,8 @@ public:
 
   Locked& operator=(const Locked&) = delete;
 
-  void Push(T);
+  void Push(const T&);
+  void Push(T&&);
 
   std::unique_ptr<T> TryPop();
   std::unique_ptr<T> WaitAndPop();
@@ -40,9 +41,16 @@ Locked<T>::Locked(const Locked& other) {
 }
 
 template<class T>
-void Locked<T>::Push(T value) {
+void Locked<T>::Push(const T& value) {
   std::lock_guard<std::mutex> lock(mutex_);
   data_.push(value);
+  cv_.notify_one();
+}
+
+template<class T>
+void Locked<T>::Push(T&& value) {
+  std::lock_guard<std::mutex> lock(mutex_);
+  data_.push(std::move(value));
   cv_.notify_one();
 }
 
@@ -52,7 +60,7 @@ std::unique_ptr<T> Locked<T>::TryPop() {
 
   if (data_.empty())
     return nullptr;
-  std::unique_ptr<T> res(std::make_unique<T>(data_.front()));
+  std::unique_ptr<T> res(std::make_unique<T>(std::move(data_.front())));
   data_.pop();
 
   return res;
@@ -63,7 +71,7 @@ std::unique_ptr<T> Locked<T>::WaitAndPop() {
   std::unique_lock<std::mutex> lock(mutex_);
 
   cv_.wait(lock, [this] { return !data_.empty(); });
-  std::unique_ptr<T> res(std::make_unique<T>(data_.front()));
+  std::unique_ptr<T> res(std::make_unique<T>(std::move(data_.front())));
   data_.pop();
 
   return res;
